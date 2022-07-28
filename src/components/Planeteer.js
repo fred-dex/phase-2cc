@@ -1,23 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 
-function Planeteer() {
+
+
+function Planeteer({ planeteers, onSelectFromUSA }) {
+  const { id, name, fromUSA, quote, pictureURL, twitter } = planeteers
+
+const [showNewPlaneteer, setShowNewPlaneteer] = useState(id)
+
+function handleClick() {
+  onSelectFromUSA((fromUSA) => !fromUSA)
+}
+
+// function handlefromUSA() {
+//   setIsFromUSA((isFromUSA) => !isFromUSA)
+// }
+
+// function handleDeletePlaneteer() {
+//   fetch(`http://localhost:8080/planeteers/${id}`, {
+//     method: 'DELETE',
+//   })
+//   onDeletePlaneteer(id)
+// }
+
+// function handleNewPlaneteer(e) {
+//   e.preventDefault()
+//   fetch(`http://localhost:8080/planeteers/${id}`, {
+//     method:'PATCH',
+//     headers: { 'Content-Type': 'application/json' },
+//     body: JSON.stringify({ id: showNewPlaneteer }),
+// })
+//     .then((r) => r.json())
+//     .then((showNewPlaneteer) => {
+//       showNewPlaneteer(showNewPlaneteer)
+//     })
+// }
+
   return (
     <li className="cards__item">
       <div className="card">
         <img
-          src={"RENDER IMAGE"}
-          alt={"RENDER PERSON NAME"}
+          src={pictureURL}
+          alt={name}
           className="card__image"
         />
         <div className="card__content">
-          <div className="card__title">{"RENDER NAME"}</div>
-          <p className="card__text">{"CONDITIONALLY RENDER BIO OR QUOTE"}</p>
+          <div className="card__title">{name}</div>
+          <p className="card__text">{quote}</p>
           <div className="card__detail">
-            <p>{"RENDER TWITTER HANDLE"}</p>
-            <p>
-              {
-                "CONDITIONALLY RENDER WHETHER THE PERSON IS USA-BASED OR WORKING OVERSEAS"
-              }
+            <p>{twitter}</p>
+            <p> {fromUSA ? 'FromUSA' : 'From Somewhere Else'} 
+            < button onClick={handleClick}>FromUSA</button>
+            {/* < button onClick={handleDeletePlaneteer}>Delete</button> */}
+            < button onClick={handleClick}>Not From USA</button>
+          <input  
+          value={showNewPlaneteer}
+          onChange={(e) => setShowNewPlaneteer((e.target.value))}
+          />
             </p>
           </div>
         </div>

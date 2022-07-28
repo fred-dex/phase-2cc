@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Planeteer from "./Planeteer";
 
 function PlaneteersContainer() {
-  return (
+  const [planeteers, setPlaneteers] = useState([])
+
+  useEffect(() => {
+    fetch('http://localhost:8003/planeteers')
+    .then((r) => r.json())
+    .then(planeteers => setPlaneteers(planeteers))
+  }, [])
+
+  // function addPlaneteer(planeteer) {
+
+  // }
+
+  return (  
     <ul className="cards">
-      {/* render a list of <Planeteer> components in here */}
+      <Planeteer 
+      planeteers={planeteers} />
     </ul>
   );
 }
